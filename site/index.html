@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="OUTLAW 2T PIPE ENGINEERING — เครื่องมือออกแบบท่อไอเสียเครื่องยนต์ 2 จังหวะ">
+    <title>OUTLAW 2T PIPE ENGINEERING</title>
+    <link rel="stylesheet" href="./assets/app.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">ONLINE ENGINEERING TOOL</p>
+        <h1>OUTLAW 2T PIPE ENGINEERING</h1>
+        <p class="subtitle">Parametric geometry และ first-order wave timing</p>
+      </div>
+      <span class="status-badge">Prototype v0.1</span>
+    </header>
+
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="Design parameters">
+        <section class="panel-section">
+          <div class="section-heading">
+            <div>
+              <p class="step-label">01</p>
+              <h2>ข้อมูลเครื่องยนต์</h2>
+            </div>
+            <p>กำหนดเงื่อนไขเป้าหมายสำหรับการประเมินคลื่น</p>
+          </div>
+          <div id="engine-fields" class="field-list"></div>
+        </section>
+
+        <section class="panel-section">
+          <div class="section-heading">
+            <div>
+              <p class="step-label">02</p>
+              <h2>รูปทรงท่อ</h2>
+            </div>
+            <p>ค่าปัจจุบันเป็น geometry ที่กำหนดเอง ยังไม่ใช่ผลจาก solver</p>
+          </div>
+          <div id="geometry-fields" class="field-list"></div>
+        </section>
+
+        <div id="validation-summary" class="validation-summary" role="alert" aria-live="polite" hidden></div>
+
+        <div class="action-bar">
+          <button id="reset-button" class="button button-secondary" type="button">คืนค่าเริ่มต้น</button>
+          <button id="export-button" class="button button-primary" type="button">Export JSON</button>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <section class="card drawing-card">
+          <div class="card-heading">
+            <div>
+              <p class="step-label">03</p>
+              <h2>Longitudinal Section</h2>
+            </div>
+            <p id="overall-length">—</p>
+          </div>
+          <div class="drawing-frame">
+            <svg id="pipe-drawing" viewBox="0 0 1000 360" role="img" aria-label="ภาพตัดตามยาวของท่อไอเสีย"></svg>
+          </div>
+          <div id="segment-legend" class="segment-legend" aria-label="Pipe segment legend"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-heading">
+            <div>
+              <p class="step-label">04</p>
+              <h2>Wave Timing Estimate</h2>
+            </div>
+            <p>First-order model</p>
+          </div>
+          <div id="result-grid" class="result-grid"></div>
+          <p class="engineering-note">
+            แบบจำลองนี้สมมติให้อุณหภูมิแก๊สและความเร็วเสียงคงที่ และใช้กึ่งกลาง baffle cone เป็นจุดสะท้อน
+            ยังไม่รวม mean gas velocity, distributed reflections, temperature gradient, gas exchange และ nonlinear effects
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="card-heading">
+            <div>
+              <p class="step-label">05</p>
+              <h2>Segment Schedule</h2>
+            </div>
+            <p>ขนาดภายใน หน่วยมิลลิเมตร</p>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Segment</th>
+                  <th scope="col">Length</th>
+                  <th scope="col">Start Ø</th>
+                  <th scope="col">End Ø</th>
+                </tr>
+              </thead>
+              <tbody id="segment-rows"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <p>Preliminary engineering tool — ตรวจสอบผลก่อนนำไปผลิตจริง</p>
+    </footer>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
+
